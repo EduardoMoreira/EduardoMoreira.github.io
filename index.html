@@ -15,7 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <!-- Custom CSS -->
         <link href="css/page.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet" />
-        <link href="css/style.css" rel="stylesheet" />
+        <link href="css/fd-slider.css" rel="stylesheet" />
         <link rel="stylesheet" href="/www/assets/css/style.css?v=7b18638deddf0fd3aae903d81287e143663e63aa" />
         
         <!-- Custom Fonts -->
@@ -26,22 +26,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         
-		<!-- web-font -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<!-- js -->
-		<!-- start price_bar  -->	
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/fd-slider.css') }}">
-		<script type="text/javascript" src="{{ url_for('static',filename='js/fd-slider.js') }}"></script>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
-        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	</head>
 	<body>
 	<!-- container -->
 	<div class="container">
 		<div class="header-logo">
 			<h1>
-				<img src="{{ url_for('static',filename='images/www.png') }}" alt="" />
+				<img src="/images/www.png" alt="" />
 				<a href="index.html">Water Waste Watcher</a>
 			</h1>
 		</div>
@@ -202,10 +193,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>	
 			<div class="clearfix"> </div>
 			<div class="copyright">
-				<p>Copyright & copy 2015 Interface Ui Kit . All rights reserved | Template by <a href="http://w3layouts.com">W3layouts</a></p>
+				<p>WWW @ Copyright 2017</p>
 			</div>
 		</div>
 	</div>
 	<!-- //container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+
 	</body>
 </html>
