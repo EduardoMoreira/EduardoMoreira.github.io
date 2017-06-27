@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Water Waste Watcher</title>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            if ("WebSocket" in window) {
+                ws = new WebSocket("ws://" + document.domain + ":8080/api");
+                ws.onmessage = function (msg) {
+                    $("#log").html("");
+                    $("#log").append("<p>"+msg.data+"</p>")
+                };
+            } else {
+                alert("WebSocket not supported");
+            }
+        });
+    </script>
+    </head>
+    <body>
+        <div>
+            <h1>WWW</h1>
+
+            Manage your water system
+
+            <ul>
+                {% for task in tasks %}
+                    <li>{{ task }} <a href="{{ url_for('delete', task=task) }}">Delete</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <h1>Water Flow:</h1>
+        <div id="log"></div>
+    </body>
+</html>
