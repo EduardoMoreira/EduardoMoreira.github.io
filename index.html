@@ -8,16 +8,26 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 	<head>
 		<title>WWW</title>
-		<link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
-		<link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all">
+        
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        
+        <!-- Custom CSS -->
+        <link href="css/page.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="/www/assets/css/style.css?v=7b18638deddf0fd3aae903d81287e143663e63aa" />
+        
+        <!-- Custom Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css" />
+        <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        
 		<!-- web-font -->
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
-		<!-- web-font -->
-		<!-- js -->
-		<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		<!-- js -->
 		<!-- start price_bar  -->	
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/fd-slider.css') }}">
@@ -25,51 +35,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-        <script type="text/javascript" charset="utf-8">
-        $(document).ready(function(){
-            if ("WebSocket" in window) {
-            	document.getElementById("pipes").src = "/static/images/4.png";
-                ws = new WebSocket("ws://" + document.domain + ":8080/api");
-                ws.onmessage = function (msg) {
-                    $("#log").html("");
-                    data = JSON.parse(msg.data);
-                    var my_plot = {
-                        x: data.x,
-                        y: data.y,
-                        type: 'scatter',
-                    };
-                    var difference = data.difference / data.sensor1 * 100;
-                    console.log('difference');
-                    console.log(difference);
-                    if(data.sensor1 < 90){
-                    	$("#log").append("<p>"+'SYSTEM SHUTDOWN'+"</p>");
-                    }else if(difference < 6){
-                        $("#log").append("<p>"+'SYSTEM OK'+"</p>");
-    					document.getElementById("pipes").src = "/static/images/4.png";
-                    }else{
-                        $("#log").append("<p>"+'BROKEN DUCT BETWEEN SENSORS: Sensor 1 and Sensor 2'+"</p>");
-                        var img = document.getElementById('myImageId');
-						document.getElementById("pipes").src = "/static/images/5.png";
-                    }
-                    var layout = {
-                      title: 'Water Flow',
-                      xaxis: {
-                        title: 'Time (s)',
-                        showgrid: false,
-                        zeroline: false
-                      },
-                      yaxis: {
-                        title: 'Flow (L/h)',
-                        showline: false
-                      }
-                    };
-                    Plotly.newPlot('sine-graph', [my_plot], layout);
-                };
-            } else {
-                alert("WebSocket not supported");
-            }
-        });
-    	</script>
 	</head>
 	<body>
 	<!-- container -->
@@ -80,6 +45,43 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<a href="index.html">Water Waste Watcher</a>
 			</h1>
 		</div>
+        
+        <body id="page-top" class="index">
+            <nav class="navbar navbar-default navbar-fixed-top">
+		        <div class="container">
+		            <div class="navbar-header page-scroll">
+		                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		                    <span class="sr-only">Toggle navigation</span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                    <span class="icon-bar"></span>
+		                </button>
+		                <a name="page-top"><img src="image/logo.png" width="150"></a>
+		            </div>
+
+		            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		                <ul class="nav navbar-nav navbar-right">
+		                    <li class="hidden active">
+		                        <a href="#page-top"></a>
+		                    </li>
+		                    <li>
+		                        <a name="team">Sections</a>
+		                    </li>
+		                    <li>
+		                        <a name="vision">Sensors</a>
+		                    </li>
+		                    <li>
+		                        <a name="ami_features">History</a>
+		                    </li>
+		                    <li>
+		                        <a name="purpose_scope">Login</a>
+		                    </li>
+		                </ul>
+		            </div>
+		        </div>
+		    </nav>
+        </body>
+        
 		<div class="top-grids">
 			<div class="col-md-7 top-grid-left">
 				<div class="top-grid-top">
@@ -176,7 +178,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<div class="user-grid-left">
 						<div class="user-left">
 							<h4>Reception</h4>
-							<img id="pipes" src="" alt="" />
+							<img id="pipes" src="/static/images/4.png" alt="" />
 						</div>
 					</div>
 				</div>
