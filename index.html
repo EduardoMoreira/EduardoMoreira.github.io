@@ -1,0 +1,209 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>WWW</title>
+		<link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+		<link href="{{ url_for('static',filename='css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all">
+		<!-- web-font -->
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
+		<!-- web-font -->
+		<!-- js -->
+		<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!-- js -->
+		<!-- start price_bar  -->	
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/fd-slider.css') }}">
+		<script type="text/javascript" src="{{ url_for('static',filename='js/fd-slider.js') }}"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+        <script type="text/javascript" charset="utf-8">
+        $(document).ready(function(){
+            if ("WebSocket" in window) {
+            	document.getElementById("pipes").src = "/static/images/4.png";
+                ws = new WebSocket("ws://" + document.domain + ":8080/api");
+                ws.onmessage = function (msg) {
+                    $("#log").html("");
+                    data = JSON.parse(msg.data);
+                    var my_plot = {
+                        x: data.x,
+                        y: data.y,
+                        type: 'scatter',
+                    };
+                    var difference = data.difference / data.sensor1 * 100;
+                    console.log('difference');
+                    console.log(difference);
+                    if(data.sensor1 < 90){
+                    	$("#log").append("<p>"+'SYSTEM SHUTDOWN'+"</p>");
+                    }else if(difference < 6){
+                        $("#log").append("<p>"+'SYSTEM OK'+"</p>");
+    					document.getElementById("pipes").src = "/static/images/4.png";
+                    }else{
+                        $("#log").append("<p>"+'BROKEN DUCT BETWEEN SENSORS: Sensor 1 and Sensor 2'+"</p>");
+                        var img = document.getElementById('myImageId');
+						document.getElementById("pipes").src = "/static/images/5.png";
+                    }
+                    var layout = {
+                      title: 'Water Flow',
+                      xaxis: {
+                        title: 'Time (s)',
+                        showgrid: false,
+                        zeroline: false
+                      },
+                      yaxis: {
+                        title: 'Flow (L/h)',
+                        showline: false
+                      }
+                    };
+                    Plotly.newPlot('sine-graph', [my_plot], layout);
+                };
+            } else {
+                alert("WebSocket not supported");
+            }
+        });
+    	</script>
+	</head>
+	<body>
+	<!-- container -->
+	<div class="container">
+		<div class="header-logo">
+			<h1>
+				<img src="{{ url_for('static',filename='images/www.png') }}" alt="" />
+				<a href="index.html">Water Waste Watcher</a>
+			</h1>
+		</div>
+		<div class="top-grids">
+			<div class="col-md-7 top-grid-left">
+				<div class="top-grid-top">
+					<div class="col-md-6 settings">
+						<div class="top-nav">
+							<span class="menu"><img src="{{ url_for('static',filename='images/menu.png') }}" alt=""></span>
+							<ul class="cl-effect-1">
+								<li><a href="#">Notifications <span>20</span></a></li>
+								<li><a href="#">Limit Usage</a></li>
+								<li><a href="#">Settings</a></li>
+							</ul>
+							<!-- script-for-menu -->
+							<script>
+							   $( "span.menu" ).click(function() {
+							   $( "ul.cl-effect-1" ).slideToggle( 300, function() {
+							 // Animation complete.
+							  });
+							 });
+							</script>
+							<!-- /script-for-menu -->
+						</div>
+					</div>
+					<div class="col-md-6 login-form">
+						<div class="login">
+							<h4>LOGIN</h4>
+							<form>
+								<input type="text" placeholder="Username" required="">
+								<input type="password" placeholder="Password" required="">
+								<div class="check-bg">
+									<div class="check">
+										<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Remember Me</label>
+									</div>
+									<div class="user">
+										<a href="#"><img src="{{ url_for('static',filename='images/user.png') }}" alt="" /></a>
+									</div>
+									<div class="clearfix"> </div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+				<div class="top-grid-bottom">
+					<div class="col-md-8 map">
+                        <div id="sine-graph" style="width: 400px; height: 300px;"></div>
+					</div>
+					<div class="col-md-4 map-right">
+						<div class="clouds">
+							<div class="cloud">
+								<div class="cloud-left">
+									<div class="cloud-img">
+										<img src="{{ url_for('static',filename='images/c1.png') }}" alt="" />
+									</div>
+									<div class="cloud-img-bottom">
+										<p>Reception</p>
+									</div>
+								</div>
+								<div class="cloud-left">
+									<div class="cloud-img">
+										<img src="{{ url_for('static',filename='images/c1.png') }}" alt="" />
+									</div>
+									<div class="cloud-img-bottom green">
+										<p>Financial Department</p>
+									</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+							<div class="cloud">
+								<div class="cloud-left">
+									<div class="cloud-img">
+										<img src="{{ url_for('static',filename='images/c1.png') }}" alt="" />
+									</div>
+									<div class="cloud-img-bottom blue">
+										<p>Bathroom</p>
+									</div>
+								</div>
+								<div class="cloud-left">
+									<div class="cloud-img">
+										<img src="{{ url_for('static',filename='images/c1.png') }}" alt="" />
+									</div>
+									<div class="cloud-img-bottom gray">
+										<p>Developer Department</p>
+									</div>
+								</div>
+								<div class="clearfix"> </div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"> </div>
+				</div>
+			</div>
+			<div class="col-md-5 top-grid-right">
+				<div class="user-grids">
+					<div class="user-grid-left">
+						<div class="user-left">
+							<h4>Reception</h4>
+							<img id="pipes" src="" alt="" />
+						</div>
+					</div>
+				</div>
+				<div class="pipes-grids">
+					<div class="pipes-left">
+						<h4>Pipeline Status</h4>
+						<div id="log"></div>
+					</div>
+				</div>
+				<div class="icons-grids">
+					<div class="button-grids">
+						<div class="button-blue">
+							<a href="#"><img src="{{ url_for('static',filename='images/pen.png') }}" alt="" /><span>Open</span></a>
+						</div>
+						<div class="button-blue hart-green">
+							<a href="#"><img src="{{ url_for('static',filename='images/heart.png') }}" alt="" /><span>Close</span></a>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"> </div>
+			</div>	
+			<div class="clearfix"> </div>
+			<div class="copyright">
+				<p>Copyright & copy 2015 Interface Ui Kit . All rights reserved | Template by <a href="http://w3layouts.com">W3layouts</a></p>
+			</div>
+		</div>
+	</div>
+	<!-- //container -->
+	</body>
+</html>
